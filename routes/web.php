@@ -22,6 +22,9 @@ Route::get('/',[HomeController::class,'index']) -> name('home');
 Route::prefix('/todo')->group(function(){
     Route::get('/',[StudentController::class,'index']) -> name('student'); //load to index file
     Route::post('/store',[StudentController::class,'store']) -> name('student.store'); //save a student
+    Route::get('/{task_id}/delete',[StudentController::class,'delete']) -> name('student.delete'); //delete a student
+    Route::get('/{task_id}/status',[StudentController::class,'status']) -> name('student.status'); //change status
+
 
 });
 
