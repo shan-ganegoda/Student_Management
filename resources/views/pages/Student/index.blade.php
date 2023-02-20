@@ -58,6 +58,7 @@
                         <td>
                             <a href="{{ route('student.delete', $task->id) }}" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
                             <a href="{{ route('student.status', $task->id) }}" class="btn btn-success"><i class="bi bi-check-circle-fill"></i></a>
+                            <a href="#" class="btn btn-warning" onclick="updatestudentModel({{ $task->id }})"><i class="bi bi-pencil-fill"></i></a>
                         </td>
                       </tr>
                      @endforeach
@@ -66,6 +67,21 @@
             </div>
         </div>
     </div>
+<!-- Modal -->
+<div class="modal fade" id="updateStudent" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Update Student</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="updateStudentbody">
+          <h1>Student</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Modal -->
 @endsection
 
 @push('css')
@@ -76,4 +92,27 @@
             color: darkslateblue;
         }
     </style>
+@endpush
+
+@push('js')
+  <script>
+    function updatestudentModel($task_id){
+      var data = {
+        task_id: task_id,
+      };
+      $.ajax({
+        url:"{{  route('student.edit') }}",
+        headers: {
+          'X-CSRF-Token':$('meta[name="csrf_token"]').attr('content');
+        },
+        type: 'GET',
+        dataType: '',
+        data: data
+        success: function(response){
+          $('#updateStudent').modal('show');
+          $('#updateStudentbody').html(response);
+        }
+      });
+    }
+  </script>
 @endpush

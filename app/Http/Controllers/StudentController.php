@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 
-class StudentController extends Controller
+class StudentController extends ParentController
 {
 
     protected $task;
 
-    public function __construct(){
-        $this->task =new Student();
-    }
+    // public function __construct(){
+    //     $this->task =new Student();
+    // }
     public function index(){
-        $response['tasks'] = $this->task->all();
+        $response['tasks'] = Student::all();
         return view('pages.student.index')->with($response);
     }
 
